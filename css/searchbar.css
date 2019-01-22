@@ -1,5 +1,5 @@
 .searchbar{
-  background-color: #353b48;
+  background-color: var(--theme-pink);
   height: 60px;
   max-width: 600px;
   display: flex;
@@ -9,7 +9,6 @@
 }
 
 .search_input{
-  color: white;
   background: none;
   flex: 1 0 auto;
   border: 0;
@@ -18,8 +17,7 @@
 }
 
 .search_icon{
-  color: white;
-  background-color: plum;
+  color: inherit;
   height: 40px;
   width: 40px;
   display: flex;
@@ -29,5 +27,6 @@
 }
 
 .search_icon:hover{
+  color: var(--theme-red);
   text-decoration: none;
 }

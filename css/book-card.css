@@ -1,0 +1,27 @@
+.book-card-container{
+  max-width: 900px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.book-card{
+  display: inline-flex;
+  flex-direction: row;
+  background-color: var(--theme-pink);
+  margin: 10px;
+}
+
+.book-card .card-body{
+  width: 240px;
+}
+
+a.book-card{
+  text-decoration: none;
+  color: inherit;
+}
+
+a.book-card:hover{
+  background-color: var(--theme-green);
+}
