@@ -1,4 +1,4 @@
-.book-card-container{
+.book-card-container {
   max-width: 900px;
   display: flex;
   justify-content: center;
@@ -6,22 +6,22 @@
   margin: auto;
 }
 
-.book-card{
+.book-card {
   display: inline-flex;
   flex-direction: row;
   background-color: var(--theme-pink);
   margin: 10px;
 }
 
-.book-card .card-body{
+.book-card .card-body {
   width: 240px;
 }
 
-a.book-card{
+a.book-card {
   text-decoration: none;
   color: inherit;
 }
 
-a.book-card:hover{
+a.book-card :hover {
   background-color: var(--theme-green);
 }
