@@ -22,6 +22,6 @@ a.book-card {
   color: inherit;
 }
 
-a.book-card :hover {
+a.book-card:hover {
   background-color: var(--theme-green);
 }

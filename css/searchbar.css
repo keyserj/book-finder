@@ -8,7 +8,7 @@
   border-radius: 30px;
 }
 
-.search_input {
+.search-input {
   background: none;
   flex: 1 0 auto;
   border: 0;
@@ -16,7 +16,7 @@
   padding: 20px;
 }
 
-.search_icon {
+.search-icon {
   color: inherit;
   height: 40px;
   width: 40px;
@@ -26,7 +26,7 @@
   border-radius: 50%;
 }
 
-.search_icon :hover {
+.search-icon:hover {
   color: var(--theme-red);
   text-decoration: none;
 }
