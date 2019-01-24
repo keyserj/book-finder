@@ -4,27 +4,54 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "@fortawesome/fontawesome-free": "^5.6.3",
     "bootstrap": "^4.2.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.6"
   },
   "devDependencies": {
-    "babel-jest": "^23.6.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-proposal-do-expressions": "^7.0.0",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-bind": "^7.0.0",
+    "@babel/plugin-proposal-function-sent": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.0.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0",
+    "@babel/preset-env": "^7.3.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^8.0.5",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "jest": "^23.6.0",
     "stylelint": "^9.10.1",
-    "stylelint-config-standard": "^18.2.0"
+    "stylelint-config-standard": "^18.2.0",
+    "webpack": "^4.29.0",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack",
+    "start": "webpack-dev-server --output-public-path=/build/"
   },
   "babel": {
     "plugins": [
-      "transform-es2015-modules-commonjs"
+      "@babel/plugin-transform-modules-commonjs"
     ]
   },
   "repository": {
