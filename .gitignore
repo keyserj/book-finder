@@ -80,4 +80,5 @@ typings/
 .dynamodb/
 
 # webpack generated files
-build
+client/dist/
+client/dist/app.bundle.js
