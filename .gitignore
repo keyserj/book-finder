@@ -81,4 +81,3 @@ typings/
 
 # webpack generated files
 client/dist/
-client/dist/app.bundle.js
