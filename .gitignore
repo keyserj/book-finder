@@ -83,4 +83,4 @@ typings/
 dist/
 
 # configs (to prevent accidental key check-in)
-config-variables/env/env.json
+server/config-variables/env/env.json
