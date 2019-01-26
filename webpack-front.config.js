@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   entry: {
-    app: ['@babel/polyfill', './client/js/src/index.js']
+    app: ['@babel/polyfill', './client/index.js']
   },
   output: {
     path: path.resolve(__dirname, 'client/dist'),
@@ -18,5 +18,6 @@ module.exports = {
         presets: ['@babel/preset-env']
       }
     }]
-  }
+  },
+  devtool: 'eval-source-map',
 }
