@@ -80,4 +80,7 @@ typings/
 .dynamodb/
 
 # webpack generated files
-client/dist/
+dist/
+
+# configs (to prevent accidental key check-in)
+config-variables/env/env.json
