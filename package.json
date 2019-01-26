@@ -28,6 +28,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "jest": "^23.6.0",
+    "jsonfile": "^5.0.0",
     "node": "^11.7.0",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
