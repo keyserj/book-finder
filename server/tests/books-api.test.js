@@ -107,3 +107,27 @@ test('parses book from volume with no imageLink', () => {
 
   expect(actualBook).toStrictEqual(expectedBook);
 });
+
+test('parses book from volume with no authors', () => {
+  const title = "title1";
+  const publisher = "publisher1";
+  const thumbnail = "thumbnail1";
+  const infoLink = "infoLink1";
+
+  const volume = {
+    volumeInfo: {
+      title,
+      publisher,
+      imageLinks: {
+        thumbnail,
+      },
+      infoLink
+    }
+  };
+
+  const actualBook = booksApi.parseBookFromVolume(volume);
+
+  const expectedBook = new Book(title, undefined, publisher, thumbnail, infoLink);
+
+  expect(actualBook).toStrictEqual(expectedBook);
+});

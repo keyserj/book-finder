@@ -9,7 +9,7 @@ export default class Book {
    */
   constructor(title, authors, publisher, coverUrl, detailsUrl) {
     this.title = title;
-    this.authors = authors.join(', ');
+    this.authors = authors ? authors.join(', ') : undefined;
     this.publisher = publisher;
     this.coverUrl = coverUrl;
     this.detailsUrl = detailsUrl;

@@ -17,7 +17,7 @@ app.get('/', (request, response) => {
 app.post('/books', (request, response) => {
   const booksQuery = request.body.booksQuery;
   booksApi.getBooks(booksQuery, config.apiKey)
-    .then((books) => response.json(books));
+    .then(books => response.json(books));
 });
 
 const port = process.env.PORT || 8080;
