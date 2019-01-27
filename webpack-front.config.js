@@ -1,7 +1,9 @@
 const path = require('path');
 
+const env = process.env.NODE_ENV || 'development';
+
 module.exports = {
-  mode: 'none',
+  mode: env,
   entry: {
     app: ['@babel/polyfill', './client/index.js']
   },

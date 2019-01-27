@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "debug": "npm run build && node --nolazy --inspect-brk=5858 server/dist/app.bundle",
     "build-front": "webpack --config ./webpack-front.config.js",
     "build-back": "webpack --config ./webpack-back.config.js",
     "build": "npm run build-front && npm run build-back",
-    "start": "npm run build && node server/dist/app.bundle",
-    "debug": "npm run build && node --nolazy --inspect-brk=5858 server/dist/app.bundle"
+    "start": "npm run build && node server/dist/app.bundle"
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
