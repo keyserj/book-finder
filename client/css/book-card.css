@@ -13,6 +13,10 @@
   margin: 10px;
 }
 
+.book-card img {
+  width: 128px;
+}
+
 .book-card .card-body {
   width: 240px;
 }
