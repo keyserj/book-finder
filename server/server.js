@@ -1,14 +1,24 @@
-const express = require('express');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import config from './config-variables/config';
+import * as booksApi from './src/books-api';
+
+const clientPath = path.resolve(__dirname, '../../client');
+
 const app = express();
-const path = require('path');
-
-const clientPath = path.resolve(__dirname, '../client');
-
+app.use(bodyParser.json());
 app.use(express.static(clientPath));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(clientPath, 'index.html'));
+app.get('/', (request, response) => {
+  response.sendFile(path.resolve(clientPath, 'index.html'));
+});
+
+app.post('/books', (request, response) => {
+  const booksQuery = request.body.booksQuery;
+  booksApi.getBooks(booksQuery, config.apiKey)
+    .then((books) => response.json(books));
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => console.log('i hear you'));
+app.listen(port, () => console.log(`app is listening on port ${port}`));
