@@ -1,4 +1,4 @@
-import { Book } from './book';
+import Book from './book';
 
 /**
  * @param {JQuery<HTMLElement>} bookCardTemplate 
@@ -23,7 +23,7 @@ export function createBookCard(bookCardTemplate, book) {
 
   bookCardCopy.removeClass('d-none');
   bookCardCopy.find('h4').text(book.title);
-  bookCardCopy.find('h5').text(book.author);
+  bookCardCopy.find('h5').text(book.authors);
   bookCardCopy.find('h6').text(book.publisher);
   bookCardCopy.find('img').attr('src', book.coverUrl);
   bookCardCopy.attr('href', book.detailsUrl);

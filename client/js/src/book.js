@@ -1,8 +1,15 @@
-export class Book {
+export default class Book {
 
-  constructor(title, author, publisher, coverUrl, detailsUrl) {
+  /**
+   * @param {string} title 
+   * @param {string[]} authors 
+   * @param {string} publisher 
+   * @param {string} coverUrl 
+   * @param {string} detailsUrl 
+   */
+  constructor(title, authors, publisher, coverUrl, detailsUrl) {
     this.title = title;
-    this.author = author;
+    this.authors = authors.join(', ');
     this.publisher = publisher;
     this.coverUrl = coverUrl;
     this.detailsUrl = detailsUrl;
