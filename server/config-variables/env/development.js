@@ -5,3 +5,4 @@ const envFile = join(__dirname, '..', 'config-variables', 'env', 'env.json');
 const envVars = readFileSync(envFile);
 
 export const apiKey = envVars['API_KEY'];
+console.log('getting api key from development');

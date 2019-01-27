@@ -2,7 +2,7 @@ const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  mode: 'development',
+  mode: 'none',
   entry: {
     app: ['@babel/polyfill', './server/server.js']
   },
