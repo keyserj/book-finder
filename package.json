@@ -20,7 +20,8 @@
     "express": "^4.16.4",
     "node-fetch": "^2.3.0",
     "webpack": "^4.29.0",
-    "webpack-cli": "^3.2.1"
+    "webpack-cli": "^3.2.1",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
@@ -34,8 +35,7 @@
     "node": "^11.7.0",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
-    "webpack-dev-server": "^3.1.14",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-dev-server": "^3.1.14"
   },
   "babel": {
     "plugins": [
