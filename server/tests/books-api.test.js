@@ -1,5 +1,5 @@
 import * as booksApi from '../src/books-api';
-import Book from '../../client/js/src/book';
+import Book from '../../client/src/book';
 
 test('returns a properly encoded Books API query', () => {
   const fakeBooksQuery = '#$&+,/:;=?@';

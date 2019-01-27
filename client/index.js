@@ -1,5 +1,5 @@
-import Book from "./js/src/book";
-import { insertBookCards } from "./js/src/searchbar";
+import Book from "./src/book";
+import { insertBookCards } from "./src/searchbar";
 
 $('.search-icon').click(() => {
   const booksQuery = $('.search-input').val();

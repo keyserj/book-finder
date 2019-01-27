@@ -1,5 +1,5 @@
 // @ts-nocheck
-import Book from '../../client/js/src/book';
+import Book from '../../client/src/book';
 import fetch from 'node-fetch';
 
 /**
