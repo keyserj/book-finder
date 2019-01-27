@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build-front": "webpack --mode production --config ./webpack-front.config.js",
-    "build-back": "webpack --mode production --config ./webpack-back.config.js",
+    "build-front": "webpack --mode development --config ./webpack-front.config.js",
+    "build-back": "webpack --mode development --config ./webpack-back.config.js",
     "build": "npm run build-front && npm run build-back",
     "start": "npm run build && node server/dist/app.bundle",
     "debug": "npm run build && node --nolazy --inspect-brk=5858 server/dist/app.bundle"
@@ -18,6 +18,7 @@
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.5",
     "express": "^4.16.4",
+    "jsonfile": "^5.0.0",
     "node-fetch": "^2.3.0",
     "webpack": "^4.29.0",
     "webpack-cli": "^3.2.1",
@@ -31,7 +32,6 @@
     "eslint-plugin-import": "^2.14.0",
     "jest": "^23.6.0",
     "jquery": "^3.3.1",
-    "jsonfile": "^5.0.0",
     "node": "^11.7.0",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.2.0",
