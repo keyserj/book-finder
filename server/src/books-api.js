@@ -2,7 +2,7 @@
  * @param {string} booksQuery 
  * @param {string} apiKey 
  */
-export function getEncodedQueryUrl(booksQuery, apiKey) {
+export function getEncodedRequestUrl(booksQuery, apiKey) {
   const baseUrl = 'https://www.googleapis.com/books/v1';
 
   const unencodedFields =
@@ -13,9 +13,9 @@ export function getEncodedQueryUrl(booksQuery, apiKey) {
   const encodedFields = encodeURIComponent(unencodedFields);
   const encodedBooksQuery = encodeURIComponent(booksQuery);
 
-  const queryUrl = `${baseUrl}/volumes?q=${encodedBooksQuery}` +
+  const requestUrl = `${baseUrl}/volumes?q=${encodedBooksQuery}` +
     `&fields=${encodedFields}` +
     `&key=${apiKey}`;
 
-  return queryUrl;
+  return requestUrl;
 }
