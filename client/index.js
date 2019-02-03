@@ -1,5 +1,5 @@
-import Book from "./src/book";
 import { insertBookCards } from "./src/book-card";
+import { parseBooksFromResponse } from "./src/book";
 
 $('.search-icon').click(performSearch);
 
@@ -22,5 +22,6 @@ function performSearch() {
   const bookCardTemplate = $('.book-card.d-none');
   fetch('/books', fetchParams)
     .then(response => response.json())
-    .then(json => insertBookCards(bookCardTemplate, json));
+    .then(json => parseBooksFromResponse(json))
+    .then(books => insertBookCards(bookCardTemplate, books));
 };

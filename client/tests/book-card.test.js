@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import * as bookCard from '../src/book-card';
-import Book from '../src/book';
+import { Book } from '../src/book';
 
 const templateHTML =
   `
