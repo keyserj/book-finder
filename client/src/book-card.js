@@ -18,7 +18,7 @@ export function insertBookCards(bookCardTemplate, books) {
  * @param {JQuery<HTMLElement>} bookCardTemplate 
  * @param {Book} book 
  */
-export function createBookCard(bookCardTemplate, book) {
+function createBookCard(bookCardTemplate, book) {
   const bookCardCopy = bookCardTemplate.clone();
 
   bookCardCopy.removeClass('d-none');

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import * as bookCard from '../src/book-card';
+import { insertBookCards } from '../src/book-card';
 import { Book } from '../src/book';
 
 const templateHTML =
@@ -15,10 +15,8 @@ const templateHTML =
 `;
 const jqueryTemplateHTML = $(templateHTML);
 
-
-test('creates visible book card from book card template', () => {
-
-  const book = new Book('', [''], '', '', '');
+test('inserts visible book card after book card template', () => {
+  const books = [new Book('', [''], '', '', '')];
 
   const expectedHTML =
     `
@@ -33,19 +31,20 @@ test('creates visible book card from book card template', () => {
     `;
   const jqueryExpectedHTML = $(expectedHTML);
 
-  expect(bookCard.createBookCard(jqueryTemplateHTML, book))
-    .toEqual(jqueryExpectedHTML);
+  insertBookCards(jqueryTemplateHTML, books);
 
-});
+  const jqueryActualHTML = jqueryTemplateHTML.next();
+  expect(jqueryActualHTML).toEqual(jqueryExpectedHTML);
+})
 
-test('creates book card using book properties', () => {
+test('inserts book card using book properties', () => {
 
   const title = 'Harry Potter and the Chamber of Secrets';
   const authors = ['Author Person', 'Person Also really long'];
   const publisher = 'Publisher Company, Incorporated, Yes';
   const imageUrl = 'http://books.google.com/books/content?id=wDVV6y-8YHEC&printsec=frontcover&img=1&zoom=1&source=gbs_api';
   const detailsUrl = 'https://www.google.com';
-  const book = new Book(title, authors, publisher, imageUrl, detailsUrl);
+  const books = [new Book(title, authors, publisher, imageUrl, detailsUrl)];
 
   const expectedAuthors = 'Author Person, Person Also really long';
   const expectedHTML =
@@ -61,7 +60,8 @@ test('creates book card using book properties', () => {
     `;
   const jqueryExpectedHTML = $(expectedHTML);
 
-  expect(bookCard.createBookCard(jqueryTemplateHTML, book))
-    .toEqual(jqueryExpectedHTML);
+  insertBookCards(jqueryTemplateHTML, books);
 
+  const jqueryActualHTML = jqueryTemplateHTML.next();
+  expect(jqueryActualHTML).toEqual(jqueryExpectedHTML);
 })
