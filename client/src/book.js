@@ -1,4 +1,3 @@
-// @ts-nocheck
 export class Book {
 
   /**
@@ -19,7 +18,7 @@ export class Book {
 }
 
 /**
- * @param {Response} apiResponseJson 
+ * @param {Object} apiResponseJson 
  */
 export function parseBooksFromResponse(apiResponseJson) {
 
