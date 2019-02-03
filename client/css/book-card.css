@@ -7,6 +7,7 @@
 }
 
 .book-card {
+  min-height: 200px;
   display: inline-flex;
   flex-direction: row;
   background-color: var(--theme-pink);
@@ -15,6 +16,7 @@
 
 .book-card img {
   width: 128px;
+  text-align: center;
 }
 
 .book-card .card-body {
