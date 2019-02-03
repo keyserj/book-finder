@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
 
 app.post('/books', (request, response) => {
   const booksQuery = request.body.booksQuery;
-  booksApi.getBooks(booksQuery, config.apiKey)
+  booksApi.getVolumes(booksQuery, config.apiKey)
     .then(books => response.json(books));
 });
 

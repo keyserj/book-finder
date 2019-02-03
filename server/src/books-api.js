@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 /**
  * @param {string} booksQuery 
  */
-export async function getBooks(booksQuery, apiKey) {
+export async function getVolumes(booksQuery, apiKey) {
   const requestUrl = getEncodedRequestUrl(booksQuery, apiKey);
   const response = await fetch(requestUrl);
   return response.json();
@@ -13,7 +13,7 @@ export async function getBooks(booksQuery, apiKey) {
  * @param {string} booksQuery 
  * @param {string} apiKey 
  */
-export function getEncodedRequestUrl(booksQuery, apiKey) {
+function getEncodedRequestUrl(booksQuery, apiKey) {
   const baseUrl = 'https://www.googleapis.com/books/v1';
 
   const unencodedFields =

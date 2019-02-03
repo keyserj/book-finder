@@ -1,13 +1,33 @@
-import * as booksApi from '../src/books-api';
+import { getVolumes } from '../src/books-api';
+import nock from 'nock'
 
-test('returns a properly encoded Books API query', () => {
+test('returns json response from Books API', async () => {
+  const anyJson = { someProperty: 7 };
+  nock('https://www.googleapis.com/books/v1')
+    .get('/volumes')
+    .query(true)
+    .reply(200, anyJson);
+
+  const volumes = await getVolumes('any query here', 'any key too');
+
+  expect(volumes).toStrictEqual(anyJson);
+});
+
+test('uses properly parameterized Url to query Books API', async () => {
   const fakeBooksQuery = '#$&+,/:;=?@';
   const apiKey = 'fakeKey';
+  const anyJson = { someProp: 'test' };
+  nock('https://www.googleapis.com/books/v1')
+    .get('/volumes')
+    .query(
+      {
+        q: fakeBooksQuery,
+        fields: 'items(volumeInfo(authors,imageLinks/thumbnail,infoLink,publisher,title))',
+        key: apiKey
+      })
+    .reply(200, anyJson);
 
-  const actualEncodedRequestUrl = booksApi.getEncodedRequestUrl(fakeBooksQuery, apiKey);
+  const volumes = await getVolumes(fakeBooksQuery, apiKey);
 
-  const expectedEncodedRequestUrl =
-    'https://www.googleapis.com/books/v1/volumes?q=%23%24%26%2B%2C%2F%3A%3B%3D%3F%40&fields=items(volumeInfo(authors%2CimageLinks%2Fthumbnail%2CinfoLink%2Cpublisher%2Ctitle))&key=fakeKey'
-
-  expect(actualEncodedRequestUrl).toEqual(expectedEncodedRequestUrl);
+  expect(volumes).toStrictEqual(anyJson);
 });
