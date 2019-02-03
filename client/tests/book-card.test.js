@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import * as searchbar from '../src/searchbar';
+import * as bookCard from '../src/book-card';
 import Book from '../src/book';
 
 const templateHTML =
@@ -33,7 +33,7 @@ test('creates visible book card from book card template', () => {
     `;
   const jqueryExpectedHTML = $(expectedHTML);
 
-  expect(searchbar.createBookCard(jqueryTemplateHTML, book))
+  expect(bookCard.createBookCard(jqueryTemplateHTML, book))
     .toEqual(jqueryExpectedHTML);
 
 });
@@ -61,7 +61,7 @@ test('creates book card using book properties', () => {
     `;
   const jqueryExpectedHTML = $(expectedHTML);
 
-  expect(searchbar.createBookCard(jqueryTemplateHTML, book))
+  expect(bookCard.createBookCard(jqueryTemplateHTML, book))
     .toEqual(jqueryExpectedHTML);
 
 })

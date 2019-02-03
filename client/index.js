@@ -1,5 +1,5 @@
 import Book from "./src/book";
-import { insertBookCards } from "./src/searchbar";
+import { insertBookCards } from "./src/book-card";
 
 $('.search-icon').click(performSearch);
 
