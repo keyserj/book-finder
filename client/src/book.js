@@ -35,7 +35,7 @@ export function parseBooksFromResponse(apiResponseJson) {
   return books;
 }
 
-export function parseBookFromVolume(volume) {
+function parseBookFromVolume(volume) {
   let thumbnail = undefined;
   if (volume.volumeInfo.imageLinks) {
     thumbnail = volume.volumeInfo.imageLinks.thumbnail;
