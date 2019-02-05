@@ -1,0 +1,7 @@
+.page-item.selected {
+  pointer-events: none;
+}
+
+.page-item.selected a {
+  color: black;
+}
