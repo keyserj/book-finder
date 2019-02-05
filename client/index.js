@@ -21,8 +21,8 @@ function performSearch() {
   };
 
   displayLoadingIcon(true);
-
   const bookCardTemplate = $('.book-card.d-none');
+
   fetchWithTimeout('/books', fetchParams, 5000)
     .then(response => response.json())
     .then(validateJsonResponse)
@@ -33,8 +33,11 @@ function performSearch() {
     .then(() => displayLoadingIcon(false));
 };
 
-function displayLoadingIcon(visible) {
-  if (visible) {
+/**
+ * @param {Boolean} makeVisible 
+ */
+function displayLoadingIcon(makeVisible) {
+  if (makeVisible) {
     $('.lds-ellipsis').removeClass('d-none');
   } else {
     $('.lds-ellipsis').addClass('d-none');
@@ -59,7 +62,7 @@ function validateJsonResponse(jsonResponse) {
  */
 function displayError(error) {
   $('.results-message')
-    .text(`Error looking for books: ${error.message}`)
+    .text(`Problem with search: ${error.message}`)
     .removeClass('d-none');
   throw error;
 };
