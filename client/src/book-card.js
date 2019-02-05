@@ -5,6 +5,14 @@ import { Book } from './book';
  * @param {Book[]} books 
  */
 export function insertBookCards(bookCardTemplate, books) {
+  if (!bookCardTemplate || !bookCardTemplate.length) {
+    throw new Error('Empty bookCardTemplate cannot be used to create book cards');
+  }
+
+  if (!books) {
+    return;
+  }
+
   let elementToInsertAfter = bookCardTemplate;
 
   for (let i = 0; i < books.length; i++) {
