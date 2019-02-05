@@ -20,6 +20,8 @@ function performSearch() {
     method: 'POST'
   };
 
+  displayLoadingIcon(true);
+
   const bookCardTemplate = $('.book-card.d-none');
   fetchWithTimeout('/books', fetchParams, 5000)
     .then(response => response.json())
@@ -27,8 +29,17 @@ function performSearch() {
     .catch(displayError)
     .then(parseBooksFromResponse)
     .then(books => insertBookCards(bookCardTemplate, books))
-    .catch(console.log);
+    .catch(console.log)
+    .then(() => displayLoadingIcon(false));
 };
+
+function displayLoadingIcon(visible) {
+  if (visible) {
+    $('.lds-ellipsis').removeClass('d-none');
+  } else {
+    $('.lds-ellipsis').addClass('d-none');
+  }
+}
 
 /**
  * @param {Object} jsonResponse 
