@@ -1,7 +1,8 @@
 import { insertBookCards } from './src/book-card';
+import { insertPageItems, getClickedPageNumber, getFirstResultNumber } from './src/pagination';
 import { parseBooksFromResponse } from './src/book';
 
-$('.search-icon').click(performSearch);
+$('.search-icon').click(() => performSearch());
 
 $('.search-input').keypress(e => {
   if (e.which === 13) {
@@ -9,29 +10,65 @@ $('.search-input').keypress(e => {
   }
 });
 
-function performSearch() {
+$('body').on('click', '.page-item a', function (e) {
+  e.preventDefault();
+  const clickedPageNumberText = $(this).text();
+  const selectedPageNumberText = $('.page-item.selected').text();
+  const clickedPageNumber =
+    getClickedPageNumber(clickedPageNumberText, selectedPageNumberText);
+  const firstResultNumber = getFirstResultNumber(clickedPageNumber);
+  performSearch(firstResultNumber);
+});
+
+function performSearch(firstResultNumber = 1) {
   $('.book-card:not(.d-none)').remove();
+  $('.page-item:not(.d-none)').remove();
   $('.results-message').addClass('d-none');
 
-  const booksQuery = $('.search-input').val();
+  const booksQuery = $('.search-input').val().toString();
+  if (!booksQuery.trim()) {
+    displayResultsDescription(booksQuery, 0, 0, 0);
+    return;
+  }
+
   const fetchParams = {
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ booksQuery }),
+    body: JSON.stringify({ booksQuery, startIndex: firstResultNumber - 1 }),
     method: 'POST'
   };
 
   displayLoadingIcon(true);
-  const bookCardTemplate = $('.book-card.d-none');
 
   fetchWithTimeout('/books', fetchParams, 5000)
     .then(response => response.json())
     .then(validateJsonResponse)
     .catch(displayError)
-    .then(parseBooksFromResponse)
-    .then(books => insertBookCards(bookCardTemplate, books))
+    .then(jsonResponse => updatePageWithResults(jsonResponse, booksQuery, firstResultNumber))
     .catch(console.log)
     .then(() => displayLoadingIcon(false));
 };
+
+/**
+ * @param {Object} jsonResponse 
+ * @param {string} booksQuery 
+ * @param {number} firstResultNumber 
+ */
+function updatePageWithResults(jsonResponse, booksQuery, firstResultNumber) {
+  const bookCardTemplate = $('.book-card.d-none');
+  const books = parseBooksFromResponse(jsonResponse);
+  insertBookCards(bookCardTemplate, books);
+
+  const lastResultNumber = firstResultNumber + books.length - 1;
+  const totalResults = jsonResponse.totalItems;
+  displayResultsDescription(
+    booksQuery,
+    firstResultNumber,
+    lastResultNumber,
+    totalResults);
+
+  const pageItemTemplate = $('.page-item.d-none');
+  insertPageItems(pageItemTemplate, firstResultNumber, lastResultNumber, totalResults);
+}
 
 /**
  * @param {Boolean} makeVisible 
@@ -66,6 +103,26 @@ function displayError(error) {
     .removeClass('d-none');
   throw error;
 };
+
+/**
+ * @param {string} booksQuery 
+ * @param {number} firstResultNumber 
+ * @param {number} lastResultNumber 
+ * @param {number} totalResults 
+ */
+function displayResultsDescription(
+  booksQuery,
+  firstResultNumber,
+  lastResultNumber,
+  totalResults) {
+
+  $('.results-message')
+    .text(
+      `Displaying results ${firstResultNumber}-${lastResultNumber}` +
+      ` of ${totalResults} for "${booksQuery}"`
+    )
+    .removeClass('d-none');
+}
 
 /**
  * @param {string} url 
