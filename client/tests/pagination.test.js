@@ -7,7 +7,7 @@
  * refers to the 'previous' page item.
  */
 import $ from 'jquery';
-import { insertPageItems } from '../src/pagination';
+import { insertPageItems, getClickedPageNumber, getFirstResultNumber } from '../src/pagination';
 
 const templateHTML =
   '<li class="page-item d-none"><a class="page-link" href="#"></a></li>';
@@ -200,4 +200,48 @@ test('throws exception if totalResults is negative', () => {
 
 test('throws exception if totalResults is smaller than lastResult - firstResult + 1', () => {
   expect(() => insertPageItems(jqueryTemplateHTML, 1, 10, 9)).toThrow();
+})
+
+test('get clicked page number returns one less than selected if clicked is Previous', () => {
+  const actualPageNumber = getClickedPageNumber('Previous', '4');
+  expect(actualPageNumber).toBe(3)
+})
+
+test('get clicked page number returns one more than selected if clicked is Next', () => {
+  const actualPageNumber = getClickedPageNumber('Next', '4');
+  expect(actualPageNumber).toBe(5)
+})
+
+test('get clicked page number returns clicked page item as number if it is a number', () => {
+  const actualPageNumber1 = getClickedPageNumber('1', '4');
+  expect(actualPageNumber1).toBe(1);
+
+  const actualPageNumber9 = getClickedPageNumber('9', '4');
+  expect(actualPageNumber9).toBe(9);
+})
+
+test('get clicked page number throws exception if selected page item text is NaN', () => {
+  expect(() => getClickedPageNumber('Previous', 'string')).toThrow();
+  expect(() => getClickedPageNumber('Previous', null)).toThrow();
+})
+
+test(`get clicked page number throws exception if clicked page item text is NaN and not 'Previous' or 'Next'`, () => {
+  expect(() => getClickedPageNumber('Previouss', '4')).toThrow();
+  expect(() => getClickedPageNumber(null, '4')).toThrow();
+})
+
+test('get first result number returns 1 for first page', () => {
+  expect(getFirstResultNumber(1)).toBe(1);
+})
+
+test('get first result number returns 11 for second page', () => {
+  expect(getFirstResultNumber(2)).toBe(11);
+})
+
+test('get first result number returns 231 for 24th page', () => {
+  expect(getFirstResultNumber(24)).toBe(231);
+})
+
+test('get first result number throws exception if page number is null', () => {
+  expect(() => getFirstResultNumber(null)).toThrow();
 })

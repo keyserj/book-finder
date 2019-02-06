@@ -40,6 +40,42 @@ export function insertPageItems(
 }
 
 /**
+ * @param {string} clickedPageItemText 
+ * @param {string} selectedPageItemText 
+ * @returns {number}
+ */
+export function getClickedPageNumber(clickedPageItemText, selectedPageItemText) {
+  const selectedPageNumber = parseInt(selectedPageItemText);
+  if (isNaN(selectedPageNumber)) {
+    throw new Error("Selected page item's text is not a number");
+  }
+
+  let clickedPageNumber;
+  if (clickedPageItemText === 'Previous') {
+    clickedPageNumber = selectedPageNumber - 1;
+  } else if (clickedPageItemText === 'Next') {
+    clickedPageNumber = selectedPageNumber + 1;
+  } else {
+    clickedPageNumber = parseInt(clickedPageItemText);
+    if (isNaN(clickedPageNumber)) {
+      throw new Error("Clicked page item's text is not 'Previous', 'Next', nor a number");
+    }
+  }
+  return clickedPageNumber;
+}
+
+/**
+ * @param {number} pageNumber 
+ * @returns {number}
+ */
+export function getFirstResultNumber(pageNumber) {
+  if (!pageNumber) {
+    throw new Error('Page number is required for determining the first result number');
+  }
+  return (pageNumber - 1) * RESULTS_PER_PAGE + 1;
+}
+
+/**
  * @param {JQuery<HTMLElement>} pageItemTemplate 
  * @param {number} firstResultNumber 
  * @param {number} lastResultNumber 
