@@ -97,12 +97,12 @@ test('inserts multiple book cards after book card template', () => {
 
   const expectedSecondHTML =
     `
-<a href="${books[0].detailsUrl}" target="_blank" class="card book-card align-items-center">
-  <img class="rounded" src="${books[0].coverUrl}" alt="No Image Found">
+<a href="${books[1].detailsUrl}" target="_blank" class="card book-card align-items-center">
+  <img class="rounded" src="${books[1].coverUrl}" alt="No Image Found">
   <div class="card-body">
-    <h4 class="card-title">${books[0].title}</h4>
-    <h5>${books[0].authors}</h5>
-    <h6>${books[0].publisher}</h6>
+    <h4 class="card-title">${books[1].title}</h4>
+    <h5>${books[1].authors}</h5>
+    <h6>${books[1].publisher}</h6>
   </div>
 </a>
     `;
@@ -111,7 +111,7 @@ test('inserts multiple book cards after book card template', () => {
   insertBookCards(jqueryTemplateHTML, books);
 
   const jqueryActualFirstHTML = jqueryTemplateHTML.next();
-  const jqueryActualSecondHTML = jqueryTemplateHTML.next();
+  const jqueryActualSecondHTML = jqueryActualFirstHTML.next();
   expect(jqueryActualFirstHTML).toEqual(jqueryExpectedFirstHTML);
   expect(jqueryActualSecondHTML).toEqual(jqueryExpectedSecondHTML);
 })
