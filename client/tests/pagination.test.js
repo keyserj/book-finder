@@ -176,7 +176,8 @@ test('throws exception if the lastPageNumber is 10+ bigger than first', () => {
 })
 
 test('throws exception if firstResultNumber is greater than lastResultNumber', () => {
-  expect(() => insertPageItems(jqueryTemplateHTML, 2, 1, 11)).toThrow();
+  expect(() => insertPageItems(jqueryTemplateHTML, 1, 0, 0))
+    .toThrow('First result number cannot be greater than last result number');
 })
 
 test('throws exception if firstResultNumber is negative', () => {

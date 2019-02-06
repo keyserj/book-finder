@@ -82,11 +82,18 @@ export function getFirstResultNumber(pageNumber) {
  * @param {number} totalResults 
  */
 function validate(pageItemTemplate, firstResultNumber, lastResultNumber, totalResults) {
-  if (!pageItemTemplate || !firstResultNumber || !lastResultNumber || !totalResults) {
+  if (
+    pageItemTemplate == null ||
+    firstResultNumber == null ||
+    lastResultNumber == null ||
+    totalResults == null) {
     throw new Error('No argument can be null');
   }
   else if (!pageItemTemplate.length) {
     throw new Error('Empty pageItemTemplate cannot be used to create page items');
+  }
+  else if (firstResultNumber > lastResultNumber) {
+    throw new Error('First result number cannot be greater than last result number');
   }
   else if (!isOnesDigitAOne(firstResultNumber)) {
     throw new Error('The ones digit of the first page result should be a one');
