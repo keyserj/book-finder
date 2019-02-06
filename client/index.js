@@ -62,7 +62,7 @@ function updatePageWithResults(jsonResponse, booksQuery, firstResultNumber) {
   const totalResults = jsonResponse.totalItems;
   displayResultsDescription(
     booksQuery,
-    firstResultNumber,
+    totalResults === 0 ? 0 : firstResultNumber,
     lastResultNumber,
     totalResults);
 
