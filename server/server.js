@@ -16,7 +16,8 @@ app.get('/', (request, response) => {
 
 app.post('/books', (request, response) => {
   const booksQuery = request.body.booksQuery;
-  queryForVolumes(booksQuery, config.apiKey)
+  const startIndex = request.body.startIndex;
+  queryForVolumes(booksQuery, config.apiKey, startIndex)
     .then(apiResponse => {
       if (apiResponse.error) {
         response.status(apiResponse.error.code);

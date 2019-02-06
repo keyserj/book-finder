@@ -178,3 +178,41 @@ test('initializes Book with regular values', () => {
   expect(book.coverUrl).toBe(imageUrl);
   expect(book.detailsUrl).toBe(detailsUrl);
 });
+
+test('can parse volume into book when totalItems is in JSON', () => {
+  const apiResponseJson =
+  {
+    totalItems: 1,
+    items: [
+      {
+        volumeInfo: {
+          title: "Harry Potter and the Cursed Child – Parts One and Two (Special Rehearsal Edition)",
+          authors: [
+            "J.K. Rowling",
+            "John Tiffany",
+            "Jack Thorne"
+          ],
+          publisher: "Pottermore Publishing",
+          imageLinks: {
+            thumbnail: "http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+          },
+          infoLink: "http://books.google.com/books?id=tcSMCwAAQBAJ&dq=harry+potter&hl=&source=gbs_api"
+        }
+      }
+    ]
+  };
+
+  const actualBooks = parseBooksFromResponse(apiResponseJson);
+
+  const expectedBooks = [
+    new Book(
+      apiResponseJson.items[0].volumeInfo.title,
+      apiResponseJson.items[0].volumeInfo.authors,
+      apiResponseJson.items[0].volumeInfo.publisher,
+      apiResponseJson.items[0].volumeInfo.imageLinks.thumbnail,
+      apiResponseJson.items[0].volumeInfo.infoLink,
+    ),
+  ]
+
+  expect(actualBooks).toStrictEqual(expectedBooks);
+});

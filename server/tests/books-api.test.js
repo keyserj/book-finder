@@ -16,18 +16,20 @@ test('returns json response from Books API', async () => {
 
 test('uses properly parameterized Url to query Books API', async () => {
   const booksQueryWithUnencodedChars = '#$&+,/:;=?@';
+  const startIndex = 5;
   const apiKey = 'fakeKey';
   nock('https://www.googleapis.com/books/v1')
     .get('/volumes')
     .query(
       {
         q: booksQueryWithUnencodedChars,
-        fields: 'items(volumeInfo(authors,imageLinks/thumbnail,infoLink,publisher,title))',
+        fields: 'totalItems,items(volumeInfo(authors,imageLinks/thumbnail,infoLink,publisher,title))',
+        startIndex: startIndex,
         key: apiKey
       })
     .reply(200, anyJson);
 
-  const response = await queryForVolumes(booksQueryWithUnencodedChars, apiKey);
+  const response = await queryForVolumes(booksQueryWithUnencodedChars, apiKey, startIndex);
 
   expect(response).toStrictEqual(anyJson);
 });
@@ -54,7 +56,7 @@ test('query with bad parameters safely returns an error response', async () => {
     .query(true)
     .reply(400, expectedResponse);
 
-  const actualResponse = await queryForVolumes(null, null);
+  const actualResponse = await queryForVolumes(null, null, null);
 
   expect(actualResponse).toStrictEqual(expectedResponse);
 });

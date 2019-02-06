@@ -2,10 +2,12 @@ import fetch from 'node-fetch';
 
 /**
  * @param {string} booksQuery 
+ * @param {string} apiKey
+ * @param {number} [startIndex]
  * @throws timeout or http request error
  */
-export async function queryForVolumes(booksQuery, apiKey) {
-  const requestUrl = getEncodedRequestUrl(booksQuery, apiKey);
+export async function queryForVolumes(booksQuery, apiKey, startIndex = 0) {
+  const requestUrl = getEncodedRequestUrl(booksQuery, apiKey, startIndex);
   const response = await fetchWithTimeout(requestUrl, {}, 5000);
   return response.json();
 }
@@ -13,11 +15,13 @@ export async function queryForVolumes(booksQuery, apiKey) {
 /**
  * @param {string} booksQuery 
  * @param {string} apiKey 
+ * @param {number} startIndex
  */
-function getEncodedRequestUrl(booksQuery, apiKey) {
+function getEncodedRequestUrl(booksQuery, apiKey, startIndex) {
   const baseUrl = 'https://www.googleapis.com/books/v1';
 
   const unencodedFields =
+    'totalItems,' +
     'items(' +
     'volumeInfo(' +
     'authors,imageLinks/thumbnail,infoLink,publisher,title))'
@@ -27,6 +31,7 @@ function getEncodedRequestUrl(booksQuery, apiKey) {
 
   const requestUrl = `${baseUrl}/volumes?q=${encodedBooksQuery}` +
     `&fields=${encodedFields}` +
+    `&startIndex=${startIndex}` +
     `&key=${apiKey}`;
 
   return requestUrl;
