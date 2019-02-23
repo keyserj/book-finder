@@ -1,11 +1,10 @@
 export class Book {
-
   /**
-   * @param {string} title 
-   * @param {string[]} authors 
-   * @param {string} publisher 
-   * @param {string} coverUrl 
-   * @param {string} detailsUrl 
+   * @param {string} title
+   * @param {string[]} authors
+   * @param {string} publisher
+   * @param {string} coverUrl
+   * @param {string} detailsUrl
    */
   constructor(title, authors, publisher, coverUrl, detailsUrl) {
     this.title = title;
@@ -14,14 +13,12 @@ export class Book {
     this.coverUrl = coverUrl;
     this.detailsUrl = detailsUrl;
   }
-
 }
 
 /**
- * @param {Object} apiResponseJson 
+ * @param {Object} apiResponseJson
  */
 export function parseBooksFromResponse(apiResponseJson) {
-
   const books = [];
 
   if (apiResponseJson && apiResponseJson.items) {
@@ -36,9 +33,9 @@ export function parseBooksFromResponse(apiResponseJson) {
 }
 
 function parseBookFromVolume(volume) {
-  let thumbnail = undefined;
+  let thumbnail;
   if (volume.volumeInfo.imageLinks) {
-    thumbnail = volume.volumeInfo.imageLinks.thumbnail;
+    ({ thumbnail } = volume.volumeInfo.imageLinks);
   }
 
   const book = new Book(
@@ -46,7 +43,7 @@ function parseBookFromVolume(volume) {
     volume.volumeInfo.authors,
     volume.volumeInfo.publisher,
     thumbnail,
-    volume.volumeInfo.infoLink
+    volume.volumeInfo.infoLink,
   );
 
   return book;

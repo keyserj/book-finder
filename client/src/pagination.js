@@ -4,28 +4,27 @@ const RESULTS_PER_PAGE = 10;
 const MAX_PAGE_DISTANCE_FROM_SELECTED = 2;
 
 /**
- * @param {JQuery<HTMLElement>} pageItemTemplate 
- * @param {number} firstResultNumber 
- * @param {number} lastResultNumber 
- * @param {number} totalResults 
+ * @param {JQuery<HTMLElement>} pageItemTemplate
+ * @param {number} firstResultNumber
+ * @param {number} lastResultNumber
+ * @param {number} totalResults
  */
 export function insertPageItems(
   pageItemTemplate,
   firstResultNumber,
   lastResultNumber,
-  totalResults) {
-
+  totalResults,
+) {
   validate(pageItemTemplate, firstResultNumber, lastResultNumber, totalResults);
 
-  const selectedPageNumber =
-    Math.floor((lastResultNumber - 1) / RESULTS_PER_PAGE) + 1;
+  const selectedPageNumber = Math.floor((lastResultNumber - 1) / RESULTS_PER_PAGE) + 1;
 
-  const pageNumbers =
-    getPageNumbers(
-      selectedPageNumber,
-      firstResultNumber,
-      lastResultNumber,
-      totalResults);
+  const pageNumbers = getPageNumbers(
+    selectedPageNumber,
+    firstResultNumber,
+    lastResultNumber,
+    totalResults,
+  );
 
   if (pageNumbers.length > 1) {
     let elementToInsertAfter = pageItemTemplate;
@@ -40,13 +39,13 @@ export function insertPageItems(
 }
 
 /**
- * @param {string} clickedPageItemText 
- * @param {string} selectedPageItemText 
+ * @param {string} clickedPageItemText
+ * @param {string} selectedPageItemText
  * @returns {number}
  */
 export function getClickedPageNumber(clickedPageItemText, selectedPageItemText) {
   const selectedPageNumber = parseInt(selectedPageItemText);
-  if (isNaN(selectedPageNumber)) {
+  if (Number.isNaN(selectedPageNumber)) {
     throw new Error("Selected page item's text is not a number");
   }
 
@@ -57,7 +56,7 @@ export function getClickedPageNumber(clickedPageItemText, selectedPageItemText) 
     clickedPageNumber = selectedPageNumber + 1;
   } else {
     clickedPageNumber = parseInt(clickedPageItemText);
-    if (isNaN(clickedPageNumber)) {
+    if (Number.isNaN(clickedPageNumber)) {
       throw new Error("Clicked page item's text is not 'Previous', 'Next', nor a number");
     }
   }
@@ -65,7 +64,7 @@ export function getClickedPageNumber(clickedPageItemText, selectedPageItemText) 
 }
 
 /**
- * @param {number} pageNumber 
+ * @param {number} pageNumber
  * @returns {number}
  */
 export function getFirstResultNumber(pageNumber) {
@@ -76,47 +75,43 @@ export function getFirstResultNumber(pageNumber) {
 }
 
 /**
- * @param {JQuery<HTMLElement>} pageItemTemplate 
- * @param {number} firstResultNumber 
- * @param {number} lastResultNumber 
- * @param {number} totalResults 
+ * @param {JQuery<HTMLElement>} pageItemTemplate
+ * @param {number} firstResultNumber
+ * @param {number} lastResultNumber
+ * @param {number} totalResults
  */
 function validate(pageItemTemplate, firstResultNumber, lastResultNumber, totalResults) {
   if (
-    pageItemTemplate == null ||
-    firstResultNumber == null ||
-    lastResultNumber == null ||
-    totalResults == null) {
+    pageItemTemplate == null
+    || firstResultNumber == null
+    || lastResultNumber == null
+    || totalResults == null) {
     throw new Error('No argument can be null');
-  }
-  else if (!pageItemTemplate.length) {
+  } else if (!pageItemTemplate.length) {
     throw new Error('Empty pageItemTemplate cannot be used to create page items');
-  }
-  else if (firstResultNumber > lastResultNumber) {
+  } else if (firstResultNumber > lastResultNumber) {
     throw new Error('First result number cannot be greater than last result number');
-  }
-  else if (!isOnesDigitAOne(firstResultNumber)) {
+  } else if (!isOnesDigitAOne(firstResultNumber)) {
     throw new Error('The ones digit of the first page result should be a one');
-  }
-  else if (lastResultNumber >= (firstResultNumber + RESULTS_PER_PAGE)) {
-    throw new Error(`Last page result should not be ${RESULTS_PER_PAGE}+` +
-      ' pages higher than first page result');
+  } else if (lastResultNumber >= (firstResultNumber + RESULTS_PER_PAGE)) {
+    throw new Error(`Last page result should not be ${RESULTS_PER_PAGE}+`
+      + ' pages higher than first page result');
   } else if (totalResults < (lastResultNumber - firstResultNumber + 1)) {
     throw new Error('Total results cannot be smaller than last result - first result + 1');
   }
 }
 
 /**
- * @param {number} firstResultNumber 
+ * @param {number} firstResultNumber
  */
 function isOnesDigitAOne(firstResultNumber) {
   return firstResultNumber.toString().slice(-1) === '1';
 }
 
 /**
- * @param {JQuery<HTMLElement>} pageItemTemplate 
- * @param {number} pageNumber 
- * @param {Boolean} isSelectedPage 
+ * @param {JQuery<HTMLElement>} pageItemTemplate
+ * @param {number} pageNumber
+ * @param {Boolean} isSelectedPage
  * @returns {JQuery<HTMLElement>}
  */
 function createPageItem(pageItemTemplate, pageNumber, isSelectedPage) {
@@ -134,7 +129,7 @@ function createPageItem(pageItemTemplate, pageNumber, isSelectedPage) {
 }
 
 /**
- * @param {number} pageNumber 
+ * @param {number} pageNumber
  * @return {string}
  */
 function getPageNumberAsString(pageNumber) {
@@ -152,24 +147,23 @@ function getPageNumberAsString(pageNumber) {
 }
 
 /**
- * @param {number} selectedPageNumber 
- * @param {number} firstResultNumber 
- * @param {number} lastResultNumber 
- * @param {number} totalResults 
+ * @param {number} selectedPageNumber
+ * @param {number} firstResultNumber
+ * @param {number} lastResultNumber
+ * @param {number} totalResults
  * @returns {number[]}
  */
 function getPageNumbers(
   selectedPageNumber,
   firstResultNumber,
   lastResultNumber,
-  totalResults) {
-
+  totalResults,
+) {
   const pageNumbers = [selectedPageNumber];
 
-  const numberOfPagesBeforeSelected =
-    Math.floor((firstResultNumber - 1)) / RESULTS_PER_PAGE;
-  const numberOfPagesAfterSelected =
-    Math.ceil((totalResults - lastResultNumber) / RESULTS_PER_PAGE);
+  const numberOfPagesBeforeSelected = Math.floor((firstResultNumber - 1)) / RESULTS_PER_PAGE;
+  const numberOfResultsAfterSelectedPage = totalResults - lastResultNumber;
+  const numberOfPagesAfterSelected = Math.ceil(numberOfResultsAfterSelectedPage / RESULTS_PER_PAGE);
 
   for (let i = 1; i <= numberOfPagesBeforeSelected && i <= MAX_PAGE_DISTANCE_FROM_SELECTED; i++) {
     pageNumbers.unshift(selectedPageNumber - i);

@@ -1,25 +1,24 @@
-import { parseBooksFromResponse, Book } from "../src/book";
+import { parseBooksFromResponse, Book } from '../src/book';
 
 test('parses one volume into book', () => {
-  const apiResponseJson =
-  {
+  const apiResponseJson = {
     items: [
       {
         volumeInfo: {
-          title: "Harry Potter and the Cursed Child – Parts One and Two (Special Rehearsal Edition)",
+          title: 'Harry Potter and the Cursed Child – Parts One and Two (Special Rehearsal Edition)',
           authors: [
-            "J.K. Rowling",
-            "John Tiffany",
-            "Jack Thorne"
+            'J.K. Rowling',
+            'John Tiffany',
+            'Jack Thorne',
           ],
-          publisher: "Pottermore Publishing",
+          publisher: 'Pottermore Publishing',
           imageLinks: {
-            thumbnail: "http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+            thumbnail: 'http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
           },
-          infoLink: "http://books.google.com/books?id=tcSMCwAAQBAJ&dq=harry+potter&hl=&source=gbs_api"
-        }
-      }
-    ]
+          infoLink: 'http://books.google.com/books?id=tcSMCwAAQBAJ&dq=harry+potter&hl=&source=gbs_api',
+        },
+      },
+    ],
   };
 
   const actualBooks = parseBooksFromResponse(apiResponseJson);
@@ -32,44 +31,43 @@ test('parses one volume into book', () => {
       apiResponseJson.items[0].volumeInfo.imageLinks.thumbnail,
       apiResponseJson.items[0].volumeInfo.infoLink,
     ),
-  ]
+  ];
 
   expect(actualBooks).toStrictEqual(expectedBooks);
 });
 
 test('parses multiple volumes into books', () => {
-  const apiResponseJson =
-  {
+  const apiResponseJson = {
     items: [
       {
         volumeInfo: {
-          title: "Harry Potter and the Cursed Child – Parts One and Two (Special Rehearsal Edition)",
+          title: 'Harry Potter and the Cursed Child – Parts One and Two (Special Rehearsal Edition)',
           authors: [
-            "J.K. Rowling",
-            "John Tiffany",
-            "Jack Thorne"
+            'J.K. Rowling',
+            'John Tiffany',
+            'Jack Thorne',
           ],
-          publisher: "Pottermore Publishing",
+          publisher: 'Pottermore Publishing',
           imageLinks: {
-            thumbnail: "http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+            thumbnail: 'http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
           },
-          infoLink: "http://books.google.com/books?id=tcSMCwAAQBAJ&dq=harry+potter&hl=&source=gbs_api"
-        }
+          infoLink: 'http://books.google.com/books?id=tcSMCwAAQBAJ&dq=harry+potter&hl=&source=gbs_api',
+        },
       },
       {
         volumeInfo: {
-          title: "title1",
+          title: 'title1',
           authors: [
-            "author1",
+            'author1',
           ],
-          publisher: "publisher1",
+          publisher: 'publisher1',
           imageLinks: {
-            thumbnail: "thumbnail1"
+            thumbnail: 'thumbnail1',
           },
-          infoLink: "infoLink1"
-        }
-      }
-    ]
+          infoLink: 'infoLink1',
+        },
+      },
+    ],
   };
 
   const actualBooks = parseBooksFromResponse(apiResponseJson);
@@ -88,8 +86,8 @@ test('parses multiple volumes into books', () => {
       apiResponseJson.items[1].volumeInfo.publisher,
       apiResponseJson.items[1].volumeInfo.imageLinks.thumbnail,
       apiResponseJson.items[1].volumeInfo.infoLink,
-    )
-  ]
+    ),
+  ];
 
   expect(actualBooks).toStrictEqual(expectedBooks);
 });
@@ -118,7 +116,7 @@ test('parses empty json into no books', () => {
   const expectedBooks = [];
 
   expect(actualBooks).toStrictEqual(expectedBooks);
-})
+});
 
 test('parses volume with empty volumeInfo into empty book', () => {
   const apiResponseJson = {
@@ -126,10 +124,10 @@ test('parses volume with empty volumeInfo into empty book', () => {
       {
         volumeInfo: {
 
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  };
 
   const actualBooks = parseBooksFromResponse(apiResponseJson);
 
@@ -139,7 +137,8 @@ test('parses volume with empty volumeInfo into empty book', () => {
       undefined,
       undefined,
       undefined,
-      undefined)
+      undefined,
+    ),
   ];
 
   expect(actualBooks).toStrictEqual(expectedBooks);
@@ -180,26 +179,25 @@ test('initializes Book with regular values', () => {
 });
 
 test('can parse volume into book when totalItems is in JSON', () => {
-  const apiResponseJson =
-  {
+  const apiResponseJson = {
     totalItems: 1,
     items: [
       {
         volumeInfo: {
-          title: "Harry Potter and the Cursed Child – Parts One and Two (Special Rehearsal Edition)",
+          title: 'Harry Potter and the Cursed Child – Parts One and Two (Special Rehearsal Edition)',
           authors: [
-            "J.K. Rowling",
-            "John Tiffany",
-            "Jack Thorne"
+            'J.K. Rowling',
+            'John Tiffany',
+            'Jack Thorne',
           ],
-          publisher: "Pottermore Publishing",
+          publisher: 'Pottermore Publishing',
           imageLinks: {
-            thumbnail: "http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+            thumbnail: 'http://books.google.com/books/content?id=tcSMCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api',
           },
-          infoLink: "http://books.google.com/books?id=tcSMCwAAQBAJ&dq=harry+potter&hl=&source=gbs_api"
-        }
-      }
-    ]
+          infoLink: 'http://books.google.com/books?id=tcSMCwAAQBAJ&dq=harry+potter&hl=&source=gbs_api',
+        },
+      },
+    ],
   };
 
   const actualBooks = parseBooksFromResponse(apiResponseJson);
@@ -212,7 +210,7 @@ test('can parse volume into book when totalItems is in JSON', () => {
       apiResponseJson.items[0].volumeInfo.imageLinks.thumbnail,
       apiResponseJson.items[0].volumeInfo.infoLink,
     ),
-  ]
+  ];
 
   expect(actualBooks).toStrictEqual(expectedBooks);
 });

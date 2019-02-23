@@ -1,5 +1,5 @@
-import { queryForVolumes } from '../src/books-api';
-import nock from 'nock'
+import nock from 'nock';
+import queryForVolumes from '../src/books-api';
 
 const anyJson = { someProp: 'test' };
 
@@ -24,9 +24,10 @@ test('uses properly parameterized Url to query Books API', async () => {
       {
         q: booksQueryWithUnencodedChars,
         fields: 'totalItems,items(volumeInfo(authors,imageLinks/thumbnail,infoLink,publisher,title))',
-        startIndex: startIndex,
-        key: apiKey
-      })
+        startIndex,
+        key: apiKey,
+      },
+    )
     .reply(200, anyJson);
 
   const response = await queryForVolumes(booksQueryWithUnencodedChars, apiKey, startIndex);
@@ -39,16 +40,16 @@ test('query with bad parameters safely returns an error response', async () => {
     error: {
       errors: [
         {
-          domain: "global",
-          reason: "requried",
-          message: "Required parameter: q",
-          locationType: "parameter",
-          location: "q"
-        }
+          domain: 'global',
+          reason: 'requried',
+          message: 'Required parameter: q',
+          locationType: 'parameter',
+          location: 'q',
+        },
       ],
       code: 400,
-      message: "Required parameter: q"
-    }
+      message: 'Required parameter: q',
+    },
   };
 
   nock('https://www.googleapis.com/books/v1')
@@ -71,7 +72,7 @@ test('query throws timeout exception after 5s wait', async () => {
 
   expect.assertions(1);
 
-  const promise = queryForVolumes("any", "any")
+  const promise = queryForVolumes('any', 'any')
     .catch(e => expect(e).toBeInstanceOf(Error));
   jest.runAllTimers();
   return promise;
@@ -87,7 +88,7 @@ test('query does not throw timeout exception after 4.999s wait', async () => {
 
   expect.assertions(0);
 
-  const promise = queryForVolumes("any", "any")
+  const promise = queryForVolumes('any', 'any')
     .catch(e => expect(e).toBeInstanceOf(Error));
   jest.runAllTimers();
   return promise;
@@ -101,6 +102,6 @@ test('query with http request error throws exception', async () => {
 
   expect.assertions(1);
 
-  return queryForVolumes("any", "any")
+  return queryForVolumes('any', 'any')
     .catch(e => expect(e).toBeInstanceOf(Error));
 });

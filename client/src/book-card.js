@@ -1,10 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 import { Book } from './book';
 
 /**
- * @param {JQuery<HTMLElement>} bookCardTemplate 
- * @param {Book[]} books 
+ * @param {JQuery<HTMLElement>} bookCardTemplate
+ * @param {Book[]} books
  */
-export function insertBookCards(bookCardTemplate, books) {
+export default function insertBookCards(bookCardTemplate, books) {
   if (!bookCardTemplate || !bookCardTemplate.length) {
     throw new Error('Empty bookCardTemplate cannot be used to create book cards');
   }
@@ -23,8 +24,8 @@ export function insertBookCards(bookCardTemplate, books) {
 }
 
 /**
- * @param {JQuery<HTMLElement>} bookCardTemplate 
- * @param {Book} book 
+ * @param {JQuery<HTMLElement>} bookCardTemplate
+ * @param {Book} book
  */
 function createBookCard(bookCardTemplate, book) {
   const bookCardCopy = bookCardTemplate.clone();

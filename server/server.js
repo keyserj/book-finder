@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import config from './config-variables/config';
-import { queryForVolumes } from './src/books-api';
+import queryForVolumes from './src/books-api';
 
 const clientPath = path.resolve(__dirname, '../../client');
 
@@ -15,23 +15,23 @@ app.get('/', (request, response) => {
 });
 
 app.post('/books', (request, response) => {
-  const booksQuery = request.body.booksQuery;
-  const startIndex = request.body.startIndex;
+  const { booksQuery } = request.body;
+  const { startIndex } = request.body;
   queryForVolumes(booksQuery, config.apiKey, startIndex)
-    .then(apiResponse => {
+    .then((apiResponse) => {
       if (apiResponse.error) {
         response.status(apiResponse.error.code);
       }
       response.json(apiResponse);
     })
-    .catch(error => {
+    .catch((error) => {
       response.status(500);
       response.json({
         error: {
           code: 500,
-          message: error.message
-        }
-      })
+          message: error.message,
+        },
+      });
     });
 });
 

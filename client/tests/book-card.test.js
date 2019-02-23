@@ -1,9 +1,8 @@
 import $ from 'jquery';
-import { insertBookCards } from '../src/book-card';
+import insertBookCards from '../src/book-card';
 import { Book } from '../src/book';
 
-const templateHTML =
-  `
+const templateHTML = `
 <a href="" target="_blank" class="card book-card align-items-center d-none">
   <img class="rounded" src="" alt="No Image Found">
   <div class="card-body">
@@ -18,8 +17,7 @@ const jqueryTemplateHTML = $(templateHTML);
 test('inserts visible book card after book card template', () => {
   const books = [new Book('', [''], '', '', '')];
 
-  const expectedHTML =
-    `
+  const expectedHTML = `
 <a href="" target="_blank" class="card book-card align-items-center">
   <img class="rounded" src="" alt="No Image Found">
   <div class="card-body">
@@ -35,10 +33,9 @@ test('inserts visible book card after book card template', () => {
 
   const jqueryActualHTML = jqueryTemplateHTML.next();
   expect(jqueryActualHTML).toEqual(jqueryExpectedHTML);
-})
+});
 
 test('inserts book card using book properties', () => {
-
   const title = 'Harry Potter and the Chamber of Secrets';
   const authors = ['Author Person', 'Person Also really long'];
   const publisher = 'Publisher Company, Incorporated, Yes';
@@ -47,8 +44,7 @@ test('inserts book card using book properties', () => {
   const books = [new Book(title, authors, publisher, imageUrl, detailsUrl)];
 
   const expectedAuthors = 'Author Person, Person Also really long';
-  const expectedHTML =
-    `
+  const expectedHTML = `
 <a href="${detailsUrl}" target="_blank" class="card book-card align-items-center">
   <img class="rounded" src="${imageUrl}" alt="No Image Found">
   <div class="card-body">
@@ -64,7 +60,7 @@ test('inserts book card using book properties', () => {
 
   const jqueryActualHTML = jqueryTemplateHTML.next();
   expect(jqueryActualHTML).toEqual(jqueryExpectedHTML);
-})
+});
 
 test('inserts multiple book cards after book card template', () => {
   const books = [
@@ -73,17 +69,18 @@ test('inserts multiple book cards after book card template', () => {
       ['Author Person', 'Person Also really long'],
       'Publisher Company, Incorporated, Yes',
       'http://books.google.com/books/content?id=wDVV6y-8YHEC&printsec=frontcover&img=1&zoom=1&source=gbs_api',
-      'https://www.google.com'),
+      'https://www.google.com',
+    ),
     new Book(
       'title1',
       ['author1', 'Person Also really long'],
       'publisher1',
       'url1',
-      'url2')
+      'url2',
+    ),
   ];
 
-  const expectedFirstHTML =
-    `
+  const expectedFirstHTML = `
 <a href="${books[0].detailsUrl}" target="_blank" class="card book-card align-items-center">
   <img class="rounded" src="${books[0].coverUrl}" alt="No Image Found">
   <div class="card-body">
@@ -95,8 +92,7 @@ test('inserts multiple book cards after book card template', () => {
     `;
   const jqueryExpectedFirstHTML = $(expectedFirstHTML);
 
-  const expectedSecondHTML =
-    `
+  const expectedSecondHTML = `
 <a href="${books[1].detailsUrl}" target="_blank" class="card book-card align-items-center">
   <img class="rounded" src="${books[1].coverUrl}" alt="No Image Found">
   <div class="card-body">
@@ -114,17 +110,17 @@ test('inserts multiple book cards after book card template', () => {
   const jqueryActualSecondHTML = jqueryActualFirstHTML.next();
   expect(jqueryActualFirstHTML).toEqual(jqueryExpectedFirstHTML);
   expect(jqueryActualSecondHTML).toEqual(jqueryExpectedSecondHTML);
-})
+});
 
 test('throws exception if bookCardTemplate is null', () => {
   const books = [new Book('', [''], '', '', '')];
   expect(() => insertBookCards(null, books)).toThrow();
-})
+});
 
 test('throws exception if bookCardTemplate is empty', () => {
   const books = [new Book('', [''], '', '', '')];
   expect(() => insertBookCards($('blah'), books)).toThrow();
-})
+});
 
 test('inserts no book cards if books is empty', () => {
   const books = [];
@@ -134,7 +130,7 @@ test('inserts no book cards if books is empty', () => {
 
   const actualNextElement = $(jqueryTemplateHTML).next();
   expect(actualNextElement).toStrictEqual(expectedNextElement);
-})
+});
 
 test('inserts no book cards if books is null', () => {
   const expectedNextElement = $(jqueryTemplateHTML).next();
@@ -143,4 +139,4 @@ test('inserts no book cards if books is null', () => {
 
   const actualNextElement = $(jqueryTemplateHTML).next();
   expect(actualNextElement).toStrictEqual(expectedNextElement);
-})
+});

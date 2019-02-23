@@ -1,16 +1,4 @@
-let config = {};
-
 const env = process.env.NODE_ENV || 'development';
-
-switch (env) {
-  case 'production':
-    config = require('./env/production');
-    break;
-
-  case 'development':
-  default:
-    config = require('./env/development');
-    break;
-}
+const config = (env === 'production' ? require('./env/production') : require('./env/development'));
 
 export default config;

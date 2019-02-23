@@ -1,6 +1,18 @@
 {
-    "extends": [
-        "airbnb-base",
-        "plugin:prettier/recommended"
-    ]
+  "env": {
+    "jest": true
+  },
+  "extends": [
+    "airbnb-base"
+  ],
+  "rules": {
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "no-console": "off",
+    "no-plusplus": "off",
+    "no-use-before-define": "off",
+    "radix": "off"
+  }
 }

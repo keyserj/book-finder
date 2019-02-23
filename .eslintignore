@@ -1,0 +1,2 @@
+# Ignore linting compiled files
+dist/
